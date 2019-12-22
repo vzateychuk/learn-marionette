@@ -5,12 +5,21 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 		template: "#contact-list-item",
 
 		events: {
-			"click td": "alertPhoneNumber"
+			"click": "highlightRow",
+			"click td": "displayCellContent"
 		},
 
-		alertPhoneNumber: function(){
-			console.log("--> alertPhoneNumber: " + this.model.escape("phoneNumber"))
-			alert(this.model.escape("phoneNumber"));
+		highlightRow: function(e) {
+			e.preventDefault();
+			this.$el.toggleClass("warning");
+		},
+
+		displayCellContent: function(e){
+			e.preventDefault();
+			console.log("--> displayCellContent: " + e.target.textContent);
+			// alert(this.model.escape("phoneNumber"));
+			// alert(this.$el.text());
+			// alert($(e.target).text())
 		}
 	});
 
