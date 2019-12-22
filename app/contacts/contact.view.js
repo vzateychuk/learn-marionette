@@ -20,8 +20,9 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 
 		onDeleteClick: function (e) {
 			e.stopPropagation();
-			console.log("Delete: '" + this.model.escape("firstName") + " " + this.model.escape("lastName") + "'");
-			this.model.collection.remove(this.model);
+			console.log("ContactItemView.onDeleteClick. Trigger contact:delete '"
+				+ this.model.escape("firstName") + " " + this.model.escape("lastName") + "'");
+			this.trigger("contact:delete", this.model)
 		}
 
 	});
