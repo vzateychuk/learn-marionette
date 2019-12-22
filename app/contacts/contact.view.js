@@ -6,7 +6,11 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 
 		events: {
 			"click": "highlightRow",
-			"click td": "displayCellContent"
+			"click button.js-delete": "onDeleteClick",
+			"click button.js-edit": function (e) {
+				e.stopPropagation();
+				console.log("Edit: '" + this.model.escape("firstName") + " " + this.model.escape("lastName") + "'");
+			}
 		},
 
 		highlightRow: function(e) {
@@ -14,13 +18,12 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 			this.$el.toggleClass("warning");
 		},
 
-		displayCellContent: function(e){
-			e.preventDefault();
-			console.log("--> displayCellContent: " + e.target.textContent);
-			// alert(this.model.escape("phoneNumber"));
-			// alert(this.$el.text());
-			// alert($(e.target).text())
+		onDeleteClick: function (e) {
+			e.stopPropagation();
+			console.log("Delete: '" + this.model.escape("firstName") + " " + this.model.escape("lastName") + "'");
+			this.model.collection.remove(this.model);
 		}
+
 	});
 
 	List.ContactsView = Marionette.CompositeView.extend({
