@@ -42,6 +42,11 @@
         <tbody> </tbody>
     </script>
 
+    <script type="text/template" id="contact-show">
+        <h1><%= firstName %> <%= lastName %></h1>
+        <p><strong>Phone number:</strong> <%= phoneNumber %></p>
+    </script>
+
     <script src="./libs/jquery.js"></script>
     <script src="./libs/underscore.js"></script>
     <script src="./libs/backbone.js"></script>
@@ -49,8 +54,11 @@
 
     <script src="app/app.js"></script>
     <script src="app/contacts/contact.model.js"></script>
+    <script src="app/contacts/contact.router.js"></script>
     <script src="app/contacts/contact.view.js"></script>
     <script src="app/contacts/contact.controller.js"></script>
+    <script src="app/contacts/show/contact-show.controller.js"></script>
+    <script src="app/contacts/show/contact-show.view.js"></script>
 
     <script type="text/javascript">
         ContactManager.start();
