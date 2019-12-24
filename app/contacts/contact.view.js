@@ -5,17 +5,20 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 		template: "#contact-list-item",
 
 		events: {
-			"click": "highlightRow",
+			// "click": "onRowClick",
 			"click button.js-delete": "onDeleteClick",
+			"click td a.js-show": "showClicked",
 			"click button.js-edit": function (e) {
 				e.stopPropagation();
 				console.log("Edit: '" + this.model.escape("firstName") + " " + this.model.escape("lastName") + "'");
 			}
 		},
 
-		highlightRow: function(e) {
-			e.preventDefault();
-			this.$el.toggleClass("warning");
+		onRowClick: function() {
+			console.log("ContactItemView.onRowClick. Trigger contact:highlight '"
+				+ this.model.escape("firstName") + " " + this.model.escape("lastName") + "'");
+			this.trigger("contact:highlight", this.model);
+//			this.$el.toggleClass("warning");
 		},
 
 		onDeleteClick: function (e) {
@@ -23,6 +26,19 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 			console.log("ContactItemView.onDeleteClick. Trigger contact:delete '"
 				+ this.model.escape("firstName") + " " + this.model.escape("lastName") + "'");
 			this.trigger("contact:delete", this.model)
+		},
+
+		showClicked: function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			this.trigger("contact:show", this.model);
+		},
+
+		remove: function(){
+			var self = this;
+			this.$el.fadeOut(function(){
+				Marionette.ItemView.prototype.remove.call(self);
+			});
 		}
 
 	});
@@ -32,7 +48,13 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 		className: "table table-hover",
 		template: "#contact-list",
 		itemView: List.ContactItemView,
-		itemViewContainer: "tbody"
+		itemViewContainer: "tbody",
+
+		onItemviewContactDelete: function(){
+			this.$el.fadeOut(1000, function(){
+				$(this).fadeIn(1000);
+			});
+		}
 	});
 	
 });
