@@ -1,20 +1,20 @@
-ContactManager.module("ContactModule", function(ContactModule, ContactManager, Backbone, Marionette, $, _) {
+ContactManager.module("ContactsApp.Model", function(Model, ContactManager, Backbone, Marionette, $, _) {
 
-	ContactModule.Contact = Backbone.Model.extend({
+	Model.Contact = Backbone.Model.extend({
 		defaults: {
 			"phoneNumber" : "No phone number!"
 		}
 	});
 
-	ContactModule.ContactCollection = Backbone.Collection.extend({
-		model: ContactModule.Contact,
+	Model.ContactCollection = Backbone.Collection.extend({
+		model: Model.Contact,
 		comparator: "firstName"
 	});
 
 	var contacts;
 
 	var initializeContacts = function () {
-		contacts = new ContactModule.ContactCollection([
+		contacts = new Model.ContactCollection([
 			{
 				id: 1,
 				firstName: "Alice",
