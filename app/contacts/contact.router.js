@@ -12,6 +12,7 @@ ContactManager.module("ContactsApp", function(ContactsApp, ContactManager, Backb
 		*/
 		listContacts: function(){
 			console.log("route to list contacts was triggered");
+			ContactManager.ContactsApp.List.ContactController.listContacts();
 		}
 	};
 
