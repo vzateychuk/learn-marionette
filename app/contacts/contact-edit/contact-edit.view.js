@@ -5,4 +5,8 @@ ContactManager.module("ContactsApp.Edit", function(Edit, ContactManager, Backbon
 		template: "#contact-edit"
 	});
 
+	Edit.MissingContact = Marionette.ItemView.extend({
+		template: "#missing-contact-view"
+	});
+
 });

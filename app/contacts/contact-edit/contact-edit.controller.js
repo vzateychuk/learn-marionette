@@ -5,9 +5,14 @@ ContactManager.module("ContactsApp.Edit", function(Edit, ContactManager, Backbon
 			console.log("showContact called for id: ", id);
 			var contacts = ContactManager.request("contact:entities");
 			var model = contacts.get(id);
-			var contactView = new Edit.ContactView({
-				model: model
-			});
+			var contactView;
+			if (model !==undefined) {
+				contactView = new Edit.ContactView({
+					model: model
+				});
+			} else {
+				contactView = new Edit.MissingContact();
+			}
 
 			ContactManager.mainRegion.show(contactView);
 		}
