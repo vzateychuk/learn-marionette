@@ -14,13 +14,10 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 				contacts.remove(model);
 			});
 
-			contactsListView.on("itemview:contact:highlight", function (childView, model) {
-				console.log("--> Contact.Controller.Highlighting toggled on model: ", model);
-			});
-
-			contactsListView.on("itemview:contact:show", function(childView, model){
-				console.log("Received itemview:contact:show event on model ", model);
-				ContactManager.ContactsApp.Edit.Controller.editContact(model);
+			contactsListView.on("itemview:contact:edit", function(childView, model){
+				console.log("Received itemview:contact:edit event on model ", model);
+				// ContactManager.ContactsApp.Edit.Controller.editContact(model);
+				ContactManager.trigger("contact:edit", model.get("id"));
 			});
 
 			ContactManager.mainRegion.show(contactsListView);

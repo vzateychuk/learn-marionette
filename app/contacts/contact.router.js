@@ -2,7 +2,8 @@ ContactManager.module("ContactsApp", function(ContactsApp, ContactManager, Backb
 {
 	ContactsApp.Router = Marionette.AppRouter.extend({
 		appRoutes: {
-			"contacts": "listContacts"
+			"contacts": "listContacts",
+			"contacts/:id": "editContact"
 		}
 	});
 
@@ -11,14 +12,24 @@ ContactManager.module("ContactsApp", function(ContactsApp, ContactManager, Backb
 			In other words, all the callbacks used in the appRoutes object must be located in our API object.
 		*/
 		listContacts: function(){
-			console.log("route to list contacts was triggered");
+			console.log("route to List was triggered");
 			ContactManager.ContactsApp.List.ContactController.listContacts();
+		},
+
+		editContact: function(id) {
+			console.log("route to Edit was triggered id: " + id);
+			ContactsApp.Edit.Controller.editContact(id);
 		}
 	};
 
 	ContactManager.on("contacts:list", function(){
 		ContactManager.navigate("contacts");
 		API.listContacts();
+	});
+
+	ContactManager.on("contact:edit", function(id){
+		ContactManager.navigate("contacts/"+id);
+		API.editContact(id);
 	});
 
 	ContactManager.addInitializer(function(){

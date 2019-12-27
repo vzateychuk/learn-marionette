@@ -7,8 +7,8 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 		events: {
 			// "click": "onRowClick",
 			"click button.js-delete": "onDeleteClick",
-			"click td a.js-edit": "onEditClicked",
-			"click button.js-edit": "onEditClicked"
+			"click td a.js-edit": "onEditClick",
+			"click button.js-edit": "onEditClick"
 		},
 
 		onDeleteClick: function (e) {
@@ -18,10 +18,10 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 			this.trigger("contact:delete", this.model)
 		},
 
-		onEditClicked: function(e){
+		onEditClick: function(e){
 			e.preventDefault();
 			e.stopPropagation();
-			this.trigger("contact:show", this.model);
+			this.trigger("contact:edit", this.model);
 		},
 
 		remove: function(){
