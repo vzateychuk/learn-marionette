@@ -29,7 +29,7 @@
             <button class="btn btn-small js-edit">
                 <i class="icon-edit"></i> Edit
             </button>
-            <a href="#" class="btn btn-small js-show">
+            <a href="#" class="btn btn-small js-edit">
                 <i class="icon-eye-open"></i> Show
             </a>
         </td>
@@ -42,7 +42,7 @@
         <tbody> </tbody>
     </script>
 
-    <script type="text/template" id="contact-show">
+    <script type="text/template" id="contact-edit">
         <h1><%= firstName %> <%= lastName %></h1>
         <p><strong>Phone number:</strong> <%= phoneNumber %></p>
     </script>
@@ -55,10 +55,10 @@
     <script src="app/app.js"></script>
     <script src="app/contacts/contact.model.js"></script>
     <script src="app/contacts/contact.router.js"></script>
-    <script src="app/contacts/contact.view.js"></script>
-    <script src="app/contacts/contact.controller.js"></script>
-    <script src="app/contacts/show/contact-show.controller.js"></script>
-    <script src="app/contacts/show/contact-show.view.js"></script>
+    <script src="app/contacts/contact-list/contact-list.view.js"></script>
+    <script src="app/contacts/contact-list/contact-list.controller.js"></script>
+    <script src="app/contacts/contact-edit/contact-edit.view.js"></script>
+    <script src="app/contacts/contact-edit/contact-edit.controller.js"></script>
 
     <script type="text/javascript">
         ContactManager.start();

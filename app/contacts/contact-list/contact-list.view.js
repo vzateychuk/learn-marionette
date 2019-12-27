@@ -7,18 +7,8 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 		events: {
 			// "click": "onRowClick",
 			"click button.js-delete": "onDeleteClick",
-			"click td a.js-show": "showClicked",
-			"click button.js-edit": function (e) {
-				e.stopPropagation();
-				console.log("Edit: '" + this.model.escape("firstName") + " " + this.model.escape("lastName") + "'");
-			}
-		},
-
-		onRowClick: function() {
-			console.log("ContactItemView.onRowClick. Trigger contact:highlight '"
-				+ this.model.escape("firstName") + " " + this.model.escape("lastName") + "'");
-			this.trigger("contact:highlight", this.model);
-//			this.$el.toggleClass("warning");
+			"click td a.js-edit": "onEditClicked",
+			"click button.js-edit": "onEditClicked"
 		},
 
 		onDeleteClick: function (e) {
@@ -28,7 +18,7 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 			this.trigger("contact:delete", this.model)
 		},
 
-		showClicked: function(e){
+		onEditClicked: function(e){
 			e.preventDefault();
 			e.stopPropagation();
 			this.trigger("contact:show", this.model);
