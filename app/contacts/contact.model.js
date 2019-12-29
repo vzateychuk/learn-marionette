@@ -1,20 +1,26 @@
-ContactManager.module("ContactsApp.Model", function(Model, ContactManager, Backbone, Marionette, $, _) {
+ContactManager.module("Entities", function(Entities, ContactManager, Backbone, Marionette, $, _) {
 
-	Model.Contact = Backbone.Model.extend({
+	Entities.Contact = Backbone.Model.extend({
+		urlRoot: "contacts",
 		defaults: {
 			"phoneNumber" : "No phone number!"
 		}
 	});
 
-	Model.ContactCollection = Backbone.Collection.extend({
-		model: Model.Contact,
+	Entities.configureStorage(Entities.Contact);
+
+	Entities.ContactCollection = Backbone.Collection.extend({
+		url: "contacts",
+		model: Entities.Contact,
 		comparator: "firstName"
 	});
+
+	Entities.configureStorage(Entities.ContactCollection);
 
 	var contacts;
 
 	var initializeContacts = function () {
-		contacts = new Model.ContactCollection([
+		contacts = new Entities.ContactCollection([
 			{
 				id: 1,
 				firstName: "Alice",
@@ -45,21 +51,31 @@ ContactManager.module("ContactsApp.Model", function(Model, ContactManager, Backb
 				firstName: "Alice",
 				lastName: "Artsy"
 			}
-		])
+		]);
+
+		contacts.forEach( function(contact) {
+			contact.save();
+		});
+
+		return contacts;
 	};
 
 	var API = {
-		getContacts: function(){
-			if (contacts === undefined) {
-				initializeContacts();
+		getContactEntities: function(){
+			var contacts = new Entities.ContactCollection();
+			contacts.fetch();
+			if (contacts.length === 0) {
+				return initializeContacts();
+			} else {
+				return contacts;
 			}
-			return contacts;
 		}
-	};
+
+};
 
 	// Register invocation 'ContactManager.request("contact:entities");' return list of the contacts
 	ContactManager.reqres.setHandler("contact:entities", function(){
-		return API.getContacts();
+		return API.getContactEntities();
 	});
 
 });
