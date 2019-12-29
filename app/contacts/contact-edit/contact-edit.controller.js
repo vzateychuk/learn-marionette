@@ -2,18 +2,21 @@ ContactManager.module("ContactsApp.Edit", function(Edit, ContactManager, Backbon
 
 	Edit.Controller = {
 		editContact: function(id) {
-			console.log("showContact called for id: ", id);
-			var contact = ContactManager.request("contact:entity", id);
-			var contactView;
-			if (contact !== undefined) {
-				contactView = new Edit.ContactView({
-					model: contact
+			console.log("Edit.Controller: showContact called for id=", id);
+			var contactPromise = ContactManager.request("contact:entity", id);
+			$.when(contactPromise)
+				.done( function(contact) {
+					var contactView;
+					console.log("Edit.Controller: resolved contactPromise, creating view for=", contact);
+					if (contact !== undefined) {
+						contactView = new Edit.ContactView({
+							model: contact
+						});
+					} else {
+						contactView = new Edit.MissingContact();
+					}
+					ContactManager.mainRegion.show(contactView);
 				});
-			} else {
-				contactView = new Edit.MissingContact();
-			}
-
-			ContactManager.mainRegion.show(contactView);
 		}
 	}
 

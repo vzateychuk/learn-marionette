@@ -11,7 +11,7 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 			contactsListView.on("itemview:contact:delete", function (childView, model) {
 				console.log("--> Contact.Controller.onDelete. Removing the model: '"
 					+ model.get("firstName") + " " + model.get("lastName") + "'")
-				contacts.remove(model);
+				model.destroy();
 			});
 
 			contactsListView.on("itemview:contact:edit", function(childView, model){

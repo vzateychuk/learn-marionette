@@ -72,11 +72,22 @@ ContactManager.module("ContactsApp.Entities", function(Entities, ContactManager,
 		},
 
 		getContactEntity: function(contactId){
+			console.log("Entities.API received request for id="+contactId+" creating promise");
 			var contact = new Entities.Contact({id: contactId});
-			contact.fetch();
-			return contact;
+			var defer = $.Deferred();
+			setTimeout(function(){
+				contact.fetch({
+					success: function (data) {
+						defer.resolve(data);
+					},
+					error: function(data){
+						defer.resolve(undefined);
+					}
+				});
+			}, 2000);
+			return defer.promise();
 		}
-};
+	};
 
 	// Register invocation 'ContactManager.request("contact:entities");' return list of the contacts
 	ContactManager.reqres.setHandler("contact:entities", function(){
