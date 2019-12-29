@@ -1,4 +1,4 @@
-ContactManager.module("Entities", function(Entities, ContactManager, Backbone, Marionette, $, _)
+ContactManager.module("ContactsApp.Entities", function(Entities, ContactManager, Backbone, Marionette, $, _)
 {
 	var findStorageKey = function(entity) {
 		if (entity.urlRoot) {

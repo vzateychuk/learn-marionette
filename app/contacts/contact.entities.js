@@ -1,4 +1,4 @@
-ContactManager.module("Entities", function(Entities, ContactManager, Backbone, Marionette, $, _) {
+ContactManager.module("ContactsApp.Entities", function(Entities, ContactManager, Backbone, Marionette, $, _) {
 
 	Entities.Contact = Backbone.Model.extend({
 		urlRoot: "contacts",
@@ -69,8 +69,13 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
 			} else {
 				return contacts;
 			}
-		}
+		},
 
+		getContactEntity: function(contactId){
+			var contact = new Entities.Contact({id: contactId});
+			contact.fetch();
+			return contact;
+		}
 };
 
 	// Register invocation 'ContactManager.request("contact:entities");' return list of the contacts
@@ -78,4 +83,7 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
 		return API.getContactEntities();
 	});
 
+	ContactManager.reqres.setHandler("contact:entity", function(id){
+		return API.getContactEntity(id);
+	});
 });
