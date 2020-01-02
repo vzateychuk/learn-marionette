@@ -2,8 +2,24 @@ ContactManager.module("ContactsApp.Entities", function(Entities, ContactManager,
 
 	Entities.Contact = Backbone.Model.extend({
 		urlRoot: "contacts",
+
 		defaults: {
 			"phoneNumber" : "No phone number!"
+		},
+
+		validate: function (attrs, options) {
+			var errors = {};
+			if (!attrs.firstName){
+				errors.firstName = "Can't be blank";
+			}
+			if (!attrs.lastName) {
+				errors.lastName = "can't be blank";
+			} else if (attrs.lastName.length < 2) {
+				errors.lastName = "is too short";
+			}
+			if (!_.isEmpty(errors)) {
+				return errors;
+			}
 		}
 	});
 

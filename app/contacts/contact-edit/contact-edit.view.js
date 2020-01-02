@@ -13,6 +13,12 @@ ContactManager.module("ContactsApp.Edit", function(Edit, ContactManager, Backbon
 			console.log("--> edit contact");
 			var data = Backbone.Syphon.serialize(this);
 			this.trigger("form:submit", data);
+		},
+
+		// Remember that triggerMethod 138 will automatically execute a function whose name corresponds to the event
+		// Therefore this method will be executed on the 'form:data:invalid' event (see controller)
+		onFormDataInvalid: function(errors){
+			console.log("invalid form data: ", errors);
 		}
 	});
 

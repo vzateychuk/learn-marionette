@@ -11,24 +11,26 @@ ContactManager.module("ContactsApp.Edit", function(Edit, ContactManager, Backbon
 			ContactManager.mainRegion.show(loadingView);
 
 			var contactPromise = ContactManager.request("contact:entity", id);
-			$.when(contactPromise)
-				.done( function(contact) {
-					var contactView;
-					console.log("Edit.Controller: resolved contactPromise, creating view for=", contact);
-					if (contact !== undefined) {
-						contactView = new Edit.ContactView({
-							model: contact
-						});
+			$.when(contactPromise).done( function(contact) {
+				var contactView;
+				console.log("Edit.Controller: resolved contactPromise, creating view for=", contact);
+				if (contact !== undefined) {
+					contactView = new Edit.ContactView({
+						model: contact
+					});
 
-						contactView.on("form:submit", function(data){
-							contact.save(data);
+					contactView.on("form:submit", function(data){
+						if ( contact.save(data) ) {
 							console.log("--> ContactController.form:submit. Contact saved.");
-						});
-					} else {
-						contactView = new Edit.MissingContact();
-					}
-					ContactManager.mainRegion.show(contactView);
-				});
+						} else {
+							contactView.triggerMethod("form:data:invalid", contact.validationError);
+						}
+					});
+				} else {
+					contactView = new Edit.MissingContact();
+				}
+				ContactManager.mainRegion.show(contactView);
+			});
 		}
 	}
 
