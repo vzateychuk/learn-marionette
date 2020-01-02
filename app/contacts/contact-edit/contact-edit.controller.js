@@ -3,6 +3,10 @@ ContactManager.module("ContactsApp.Edit", function(Edit, ContactManager, Backbon
 	Edit.Controller = {
 		editContact: function(id) {
 			console.log("Edit.Controller: showContact called for id=", id);
+
+			var loadingView = new ContactManager.Common.Views.LoadingView();
+			ContactManager.mainRegion.show(loadingView);
+
 			var contactPromise = ContactManager.request("contact:entity", id);
 			$.when(contactPromise)
 				.done( function(contact) {

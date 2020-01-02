@@ -48,6 +48,12 @@
         <div class="alert alert-error">This contact doesn't exist !</div>
     </script>
 
+    <script type="text/template" id="loading-view">
+        <h1><%= title %></h1>
+        <p><%= message %></p>
+        <div id="spinner"></div>
+    </script>
+
     <script src="./libs/jquery.js"></script>
     <script src="./libs/underscore.js"></script>
     <script src="./libs/backbone.js"></script>
@@ -62,6 +68,7 @@
     <script src="app/contacts/contact-list/contact-list.controller.js"></script>
     <script src="app/contacts/contact-edit/contact-edit.view.js"></script>
     <script src="app/contacts/contact-edit/contact-edit.controller.js"></script>
+    <script src="app/core/loading/loading.view.js"></script>
 
     <script type="text/javascript">
         ContactManager.start();

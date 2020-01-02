@@ -57,18 +57,28 @@ ContactManager.module("ContactsApp.Entities", function(Entities, ContactManager,
 			contact.save();
 		});
 
-		return contacts;
+		return contacts.models;
 	};
 
 	var API = {
 		getContactEntities: function(){
 			var contacts = new Entities.ContactCollection();
-			contacts.fetch();
-			if (contacts.length === 0) {
-				return initializeContacts();
-			} else {
-				return contacts;
-			}
+			var defer = $.Deferred();
+			setTimeout(function () {
+				contacts.fetch({
+					success: function (data) {
+						defer.resolve(data);
+					}
+				});
+			}, 2000);
+			var promise = defer.promise();
+			$.when(promise).done(function (contacts) {
+				if (contacts.length === 0) {
+					var models = initializeContacts();
+					contacts.reset(models);
+				}
+			});
+			return promise;
 		},
 
 		getContactEntity: function(contactId){
