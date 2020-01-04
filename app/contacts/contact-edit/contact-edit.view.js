@@ -10,7 +10,19 @@ ContactManager.module("ContactsApp.Edit", function(Edit, ContactManager, Backbon
 
 		submitClicked: function(e){
 			e.preventDefault();
-			console.log("--> edit contact");
+
+			var $view = this.$el;
+			var clearFormErrors = function(){
+				var $form = $view.find("form");
+				$form.find(".help-inline.error").each(function(){
+					$(this).remove();
+				});
+				$form.find(".control-group.error").each(function(){
+					$(this).removeClass("error");
+				});
+			};
+
+			clearFormErrors();
 			var data = Backbone.Syphon.serialize(this);
 			this.trigger("form:submit", data);
 		},
@@ -19,6 +31,15 @@ ContactManager.module("ContactsApp.Edit", function(Edit, ContactManager, Backbon
 		// Therefore this method will be executed on the 'form:data:invalid' event (see controller)
 		onFormDataInvalid: function(errors){
 			console.log("invalid form data: ", errors);
+			var $view = this.$el;
+
+			var markErrors = function(value, key){
+				var $controlGroup = $view.find("#contact-" + key).parent();
+				var $errorEl = $("<span>", {class: "help-inline error", text: value});
+				$controlGroup.append($errorEl).addClass("error");
+			};
+
+			_.each(errors, markErrors);
 		}
 	});
 
