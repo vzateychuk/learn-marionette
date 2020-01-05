@@ -3,8 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>Contact Manager</title>
-    <link href="./libs/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="./libs/app.css" rel="stylesheet"/>
+    <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+		<link href="libs/jquery-ui-1.10.3.css" rel="stylesheet"/>
+    <link href="libs/app.css" rel="stylesheet"/>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -18,6 +19,17 @@
     <div id="main-region" class="container">
         <p>Here is static content in the web page. You'll notice that it gets replaced by our app as soon as we start it.</p>
     </div>
+
+		<div id="dialog-region"></div>
+
+		<script type="text/template" id="contact-list-layout">
+        <div id="panel-region"></div>
+        <div id="contacts-region"></div>
+    </script>
+
+    <script type="text/template" id="contact-list-panel">
+        <button class="btn btn-primary js-new">New contact</button>
+    </script>
 
     <script type="text/template" id="contact-list-item">
         <td> <%= firstName %></td>
@@ -39,8 +51,7 @@
         <tbody> </tbody>
     </script>
 
-    <script type="text/template" id="contact-edit">
-        <h1>Edit <%= firstName %> <%= lastName %></h1>
+    <script type="text/template" id="contact-form">
         <form>
             <div class="control-group">
                 <label for="contact-firstName" class="control-label">
@@ -74,22 +85,25 @@
         <div id="spinner"></div>
     </script>
 
-    <script src="./libs/jquery.js"></script>
-    <script src="./libs/underscore.js"></script>
-    <script src="./libs/backbone.js"></script>
-    <script src="./libs/backbone.marionette.js"></script>
-		<script src="./libs/backbone.localStorage.min.js"></script>
+    <script src="libs/jquery.js"></script>
+    <script src="libs/underscore.js"></script>
+    <script src="libs/backbone.js"></script>
+    <script src="libs/backbone.marionette.js"></script>
+		<script src="libs/backbone.localStorage.min.js"></script>
     <script src="libs/backbone.syphon.js"></script>
+		<script src="libs/jquery-ui-1.10.3.js"></script>
 
     <script src="app/app.js"></script>
     <script src="app/core/storage/localstorage.js"></script>
     <script src="app/contacts/contact.entities.js"></script>
     <script src="app/contacts/contact.router.js"></script>
+		<script src="app/core/loading/loading.view.js"></script>
+		<script src="app/core/common/contact-form.view.js"></script>
     <script src="app/contacts/contact-list/contact-list.view.js"></script>
     <script src="app/contacts/contact-list/contact-list.controller.js"></script>
     <script src="app/contacts/contact-edit/contact-edit.view.js"></script>
     <script src="app/contacts/contact-edit/contact-edit.controller.js"></script>
-    <script src="app/core/loading/loading.view.js"></script>
+		<script src="app/contacts/contact-new/contact-new.view.js"></script>
 
     <script type="text/javascript">
         ContactManager.start();

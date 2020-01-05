@@ -1,4 +1,20 @@
 ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbone, Marionette, $, _){
+	List.Layout = Marionette.Layout.extend({
+		template: "#contact-list-layout",
+
+		regions: {
+			panelRegion: "#panel-region",
+			contactsRegion: "#contacts-region"
+		}
+	});
+
+	List.Panel = Marionette.ItemView.extend({
+		template: "#contact-list-panel",
+
+		triggers: {
+			"click button.js-new": "contact:new"
+		}
+	});
 
 	List.ContactItemView = Marionette.ItemView.extend({
 		tagName: "tr",

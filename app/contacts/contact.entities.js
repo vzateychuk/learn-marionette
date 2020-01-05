@@ -4,12 +4,14 @@ ContactManager.module("ContactsApp.Entities", function(Entities, ContactManager,
 		urlRoot: "contacts",
 
 		defaults: {
+			firstName: "",
+			lastName: "",
 			"phoneNumber" : "No phone number!"
 		},
 
 		validate: function (attrs, options) {
 			var errors = {};
-			if (!attrs.firstName){
+			if (!attrs.firstName) {
 				errors.firstName = "Can't be blank";
 			}
 			if (!attrs.lastName) {
