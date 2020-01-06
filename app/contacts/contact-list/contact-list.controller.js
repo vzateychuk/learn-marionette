@@ -23,6 +23,10 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 					contactsListLayout.contactsRegion.show(contactsListView);
 				});
 
+				contactsListPanel.on("contacts:filter", function(filterCriteria){
+						console.log("--> filter list with Criteria: ", filterCriteria);
+				});
+
 				contactsListPanel.on("contact:new", function () {
 					var newContact = new ContactManager.ContactsApp.Entities.Contact();
 
