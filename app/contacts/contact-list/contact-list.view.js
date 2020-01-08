@@ -65,12 +65,22 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 		template: "#contact-list",
 		itemView: List.ContactItemView,
 		itemViewContainer: "tbody",
+		emptyView: NoContactsView,
 
 		onItemviewContactDelete: function(){
 			this.$el.fadeOut(1000, function(){
 				$(this).fadeIn(1000);
 			});
 		}
+	});
+
+	// We’ve defined our empty view as a simple var (not attached to the List module), because
+	// we’re not going to use it from anywhere else. In other words, the empty view can remain
+	// “private” within the list_view.js file.
+	var NoContactsView = Marionette.ItemView.extend({
+		template: "#contact-list-none",
+		tagName: "tr",
+		className: "alert"
 	});
 	
 });

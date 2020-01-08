@@ -1,4 +1,5 @@
 ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbone, Marionette, $, _) {
+
 	List.ContactController = {
 
 		listContacts: function() {
@@ -14,8 +15,21 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 			var contactsListPanel = new List.Panel();
 
 			$.when(contactListPromise).done( function (contacts) {
+				var filteredContacts = ContactManager.Entities.FilteredCollection({
+					collection: contacts,
+					filterFunction: function(filterCriterion){
+						var criterion = filterCriterion.toLowerCase();
+						return function(contact){
+							if(contact.get("firstName").toLowerCase().indexOf(criterion) !== -1
+									|| contact.get("lastName").toLowerCase().indexOf(criterion) !== -1) {
+								return contact;
+							}
+						};
+					}
+				});
+
 				var contactsListView = new List.ContactsView({
-					collection: contacts
+					collection: filteredContacts
 				});
 
 				contactsListLayout.on("show", function () {
@@ -24,7 +38,8 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 				});
 
 				contactsListPanel.on("contacts:filter", function(filterCriteria){
-						console.log("--> filter list with Criteria: ", filterCriteria);
+					console.log("--> filter list with Criteria: ", filterCriteria);
+					filteredContacts.filter(filterCriteria);
 				});
 
 				contactsListPanel.on("contact:new", function () {
