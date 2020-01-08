@@ -59,6 +59,16 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 
 	});
 
+
+	// We’ve defined our empty view as a simple var (not attached to the List module), because
+	// we’re not going to use it from anywhere else. In other words, the empty view can remain
+	// “private” within the list_view.js file.
+	var NoContactsView = Marionette.ItemView.extend({
+		template: "#contact-list-none",
+		tagName: "tr",
+		className: "alert"
+	});
+
 	List.ContactsView = Marionette.CompositeView.extend({
 		tagName: "table",
 		className: "table table-hover",
@@ -74,13 +84,4 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 		}
 	});
 
-	// We’ve defined our empty view as a simple var (not attached to the List module), because
-	// we’re not going to use it from anywhere else. In other words, the empty view can remain
-	// “private” within the list_view.js file.
-	var NoContactsView = Marionette.ItemView.extend({
-		template: "#contact-list-none",
-		tagName: "tr",
-		className: "alert"
-	});
-	
 });
